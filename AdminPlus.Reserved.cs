@@ -43,7 +43,8 @@ public partial class AdminPlus
         try
         {
             _svVisibleMaxPlayers = ConVar.Find("sv_visiblemaxplayers");
-            
+            UpdateReservationSettings();
+
             RegisterListener<OnMapStart>(OnMapStartReservation);
         }
         catch (Exception ex)
@@ -60,7 +61,7 @@ public partial class AdminPlus
         }
         catch (Exception ex)
         {
-            LogError("PeriodicCleanup error", ex);
+            LogError("Reservation system error", ex);
         }
     }
     
@@ -304,13 +305,21 @@ public partial class AdminPlus
     {
         try
         {
+            if (_svVisibleMaxPlayers == null)
+                _svVisibleMaxPlayers = ConVar.Find("sv_visiblemaxplayers");
+
+            if (_svVisibleMaxPlayers == null)
+                return;
+
+            int visiblePlayers = Math.Max(1, Server.MaxPlayers - ReservedSlotCount);
+            _svVisibleMaxPlayers.SetValue(visiblePlayers);
+            LogDebug("Visible player limit set to {0} (server max: {1})", visiblePlayers, Server.MaxPlayers);
         }
         catch (Exception ex)
         {
-            LogError("PeriodicCleanup error", ex);
+            LogError("Failed to update visible player slots", ex);
         }
     }
-    
     private void UpdateReservationSettings()
     {
         try
