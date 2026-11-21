@@ -101,7 +101,7 @@ public partial class AdminPlus
             _pluginChatCommands.Add(alias);
             AddCommand(alias, $"Change map alias: {alias}", (caller, info) =>
             {
-                if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/generic")))
+                if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/generic")))
                 {
                     caller.Print(Localizer["NoPermission"]);
                     return;
@@ -121,7 +121,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/generic"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/generic"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -172,7 +172,7 @@ public partial class AdminPlus
 
     private void CmdSlap(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/slay")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/slay")))
         { if (caller.IsValid) caller.Print(Localizer["NoPermission"]); return; }
 
         if (info.ArgCount < 2)
@@ -304,7 +304,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/slay"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/slay"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -401,7 +401,7 @@ public partial class AdminPlus
 
     private void CmdRename(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/slay")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/slay")))
         { if (caller.IsValid) caller.Print(Localizer["NoPermission"]); return; }
 
         if (info.ArgCount < 3)
@@ -436,7 +436,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/slay"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/slay"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -563,7 +563,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/slay"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/slay"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -901,7 +901,7 @@ public partial class AdminPlus
 
     private void CmdChangeMap(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/generic")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/generic")))
         {
             caller.Print(Localizer["NoPermission"]);
             return;
@@ -922,7 +922,7 @@ public partial class AdminPlus
 
     private void CmdChangeWorkshopMap(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/generic")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/generic")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -948,7 +948,7 @@ public partial class AdminPlus
 
     private void CmdRcon(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/root")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -971,7 +971,7 @@ public partial class AdminPlus
 
     private void CmdCvar(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/generic")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/generic")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -1027,7 +1027,7 @@ public partial class AdminPlus
 
     private void CmdWho(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/generic")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/generic")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -1054,7 +1054,7 @@ public partial class AdminPlus
 
     private void CmdRestartRound(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/generic")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/generic")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -1068,7 +1068,7 @@ public partial class AdminPlus
 
     private void CmdPlayers(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && !AdminManager.PlayerHasPermissions(caller, "@css/root"))
+        if (caller != null && !HasEffectivePermission(caller, "@css/root"))
             return;
 
         Console.WriteLine("--------- PLAYER LIST ---------");
