@@ -696,16 +696,10 @@ public partial class AdminPlus
 
     private bool CheckImmunity(CCSPlayerController caller, CCSPlayerController target)
     {
-        if (caller == null || target == null) return false;
-        if (caller.SteamID == target.SteamID)
-            return false;
-
-        adminImmunity.TryGetValue(caller.SteamID, out var callerImm);
-        adminImmunity.TryGetValue(target.SteamID, out var targetImm);
-
-        return callerImm < targetImm;
+        // Reztop policy: permissions control who may punish, not target immunity.
+        // Admins can be punished regardless of their configured immunity value.
+        return false;
     }
-
     private void SaveRecentSeen(CCSPlayerController player)
     {
         if (player != null && player.IsValid)
