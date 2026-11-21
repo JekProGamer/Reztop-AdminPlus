@@ -18,15 +18,14 @@ public partial class AdminPlus
 {
     private static readonly Dictionary<string, string> MapAliases = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "mirage", "de_mirage" },
-        { "vertigo", "de_vertigo" },
-        { "inferno", "de_inferno" },
-        { "nuke", "de_nuke" },
-        { "overpass", "de_overpass" },
-        { "ancient", "de_ancient" },
-        { "dust2", "de_dust2" },
-        { "anubis", "de_anubis" },
-        { "train", "de_train" }
+        { "dm_nixware_mirage_d", "dm_nixware_mirage_d" },
+        { "dm_nixware_fysnow_d", "dm_nixware_fysnow_d" }
+    };
+
+    private static readonly HashSet<string> WorkshopMapNames = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "dm_nixware_mirage_d",
+        "dm_nixware_fysnow_d"
     };
 
     private static HashSet<string> InstalledMaps = new();
@@ -1081,6 +1080,15 @@ public partial class AdminPlus
 
     private void ForceChangeMap(CCSPlayerController? caller, string mapName)
     {
+        if (WorkshopMapNames.Contains(mapName))
+        {
+            var workshopExecutor = GetExecutorNameCommand(caller);
+            AdminPlus.LogAction($"{workshopExecutor} changed workshop map to {mapName}");
+            PlayerExtensions.PrintToAll(Localizer["Map.Changed", workshopExecutor, mapName]);
+            Server.ExecuteCommand($"ds_workshop_changelevel {mapName}");
+            return;
+        }
+
         if (mapName.StartsWith("workshop/", StringComparison.OrdinalIgnoreCase))
         {
             string workshopId = mapName.Replace("workshop/", "");
