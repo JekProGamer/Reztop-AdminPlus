@@ -431,7 +431,7 @@ public partial class AdminPlus : BasePlugin
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[AdminPlus] Ban cache refresh check failed: {ex.Message}");
+            Console.WriteLine($"[Reztop-AdminPlus] Ban cache refresh check failed: {ex.Message}");
         }
     }
 
@@ -594,9 +594,9 @@ public partial class AdminPlus : BasePlugin
     {
         var line = $"{ModuleName} plugin version {ModuleVersion}";
         if (caller != null && caller.IsValid && !caller.IsBot)
-            caller.PrintToConsole($"[AdminPlus] {line}");
+            caller.PrintToConsole($"[Reztop-AdminPlus] {line}");
         else
-            Console.WriteLine($"[AdminPlus] {line}");
+            Console.WriteLine($"[Reztop-AdminPlus] {line}");
     }
 
     private bool TryHandlePublicVersionChatCommand(CCSPlayerController? player, string rawMessage)
@@ -676,19 +676,19 @@ public partial class AdminPlus : BasePlugin
             {
                 if (onlineAdmins.Count == 0)
                 {
-                    Console.WriteLine("[AdminPlus] No online admins currently.");
+                    Console.WriteLine("[Reztop-AdminPlus] No online admins currently.");
                     return;
                 }
                 
                 foreach (var a in onlineAdmins.OrderByDescending(x => x.imm))
-                    Console.WriteLine($"[AdminPlus] Online Admin: {a.name} [{a.imm}]");
-                Console.WriteLine($"[AdminPlus] Total {onlineAdmins.Count} admins online!");
+                    Console.WriteLine($"[Reztop-AdminPlus] Online Admin: {a.name} [{a.imm}]");
+                Console.WriteLine($"[Reztop-AdminPlus] Total {onlineAdmins.Count} admins online!");
             }
         }
         catch (Exception ex)
         {
             if (caller != null && caller.IsValid)
-                caller.PrintToChat($"{{green}}[AdminPlus]{{default}} Failed to get admin list: {ex.Message}");
+                caller.PrintToChat($"{{green}}[Reztop-AdminPlus]{{default}} Failed to get admin list: {ex.Message}");
             else
                 LogError($"Admins command error: {ex.Message}");
         }
@@ -822,7 +822,7 @@ public partial class AdminPlus : BasePlugin
                     {
                         File.WriteAllLines(BannedUserPath, SteamBans.Values.Select(v => v.line));
                         File.WriteAllLines(BannedIpPath, IpBans.Values.Select(v => v.line));
-                        Console.WriteLine($"[AdminPlus] Cleaned up {steamToRemove.Count} expired Steam bans and {ipToRemove.Count} expired IP bans");
+                        Console.WriteLine($"[Reztop-AdminPlus] Cleaned up {steamToRemove.Count} expired Steam bans and {ipToRemove.Count} expired IP bans");
                     }
                     catch (Exception ex)
                     {
@@ -897,7 +897,7 @@ public partial class AdminPlus : BasePlugin
     private static string GetPrefixedMessage(string key, params object[] args)
     {
         var message = _instance?.Localizer[key, args] ?? key;
-        var prefix = _instance?.Localizer["Prefix"] ?? "{green}[AdminPlus]{default}";
+        var prefix = _instance?.Localizer["Prefix"] ?? "{green}[Reztop-AdminPlus]{default}";
         return message.Replace("{Prefix}", prefix);
     }
     
@@ -1162,7 +1162,7 @@ public static class PlayerExtensions
                 
                 if (Server.MaxPlayers <= 0)
                 {
-                    Console.WriteLine($"[AdminPlus] {fullMessage}");
+                    Console.WriteLine($"[Reztop-AdminPlus] {fullMessage}");
                     return;
                 }
                 
@@ -1174,7 +1174,7 @@ public static class PlayerExtensions
             catch (Exception ex)
             {
                 AdminPlus.LogError($"PrintToAll error: {ex.Message}");
-                Console.WriteLine($"[AdminPlus] {message}");
+                Console.WriteLine($"[Reztop-AdminPlus] {message}");
             }
         }
     
