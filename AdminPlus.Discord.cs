@@ -109,13 +109,13 @@ public static class Discord
 
                 if (config?.DiscordWebhooks != null)
                 {
-                    BanWebhook = config.DiscordWebhooks.BanWebhook ?? "";
-                    AdminActionsWebhook = config.DiscordWebhooks.AdminActionsWebhook ?? "";
-                    CommunicationWebhook = config.DiscordWebhooks.CommunicationWebhook ?? "";
-                    ServerStatusWebhook = config.DiscordWebhooks.ServerStatusWebhook ?? "";
-                    ConnectionLogsWebhook = config.DiscordWebhooks.ConnectionLogsWebhook ?? "";
-                    ChatLogsWebhook = config.DiscordWebhooks.ChatLogsWebhook ?? "";
-                    ReportAndCalladminWebhook = config.DiscordWebhooks.ReportAndCalladminWebhook ?? "";
+                    BanWebhook = ValidateWebhook(config.DiscordWebhooks.BanWebhook, "BanWebhook");
+                    AdminActionsWebhook = ValidateWebhook(config.DiscordWebhooks.AdminActionsWebhook, "AdminActionsWebhook");
+                    CommunicationWebhook = ValidateWebhook(config.DiscordWebhooks.CommunicationWebhook, "CommunicationWebhook");
+                    ServerStatusWebhook = ValidateWebhook(config.DiscordWebhooks.ServerStatusWebhook, "ServerStatusWebhook");
+                    ConnectionLogsWebhook = ValidateWebhook(config.DiscordWebhooks.ConnectionLogsWebhook, "ConnectionLogsWebhook");
+                    ChatLogsWebhook = ValidateWebhook(config.DiscordWebhooks.ChatLogsWebhook, "ChatLogsWebhook");
+                    ReportAndCalladminWebhook = ValidateWebhook(config.DiscordWebhooks.ReportAndCalladminWebhook, "ReportAndCalladminWebhook");
                     ReportAndCalladminWebhookMentionUserId = config.DiscordWebhooks.ReportAndCalladminWebhookMentionUserId ?? "@everyone";
                     ConfiguredServerAddress = config.DiscordWebhooks.ServerAddress ?? "";
                 }
@@ -129,6 +129,26 @@ public static class Discord
         {
             AdminPlus.LogError($"Config load error: {ex.Message}");
         }
+    }
+
+    private static string ValidateWebhook(string? value, string settingName)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return string.Empty;
+
+        if (Uri.TryCreate(value.Trim(), UriKind.Absolute, out var uri) &&
+            uri.Scheme == Uri.UriSchemeHttps &&
+            (uri.Host.Equals("discord.com", StringComparison.OrdinalIgnoreCase) ||
+             uri.Host.Equals("discordapp.com", StringComparison.OrdinalIgnoreCase) ||
+             uri.Host.Equals("canary.discord.com", StringComparison.OrdinalIgnoreCase) ||
+             uri.Host.Equals("ptb.discord.com", StringComparison.OrdinalIgnoreCase)) &&
+            uri.AbsolutePath.StartsWith("/api/webhooks/", StringComparison.OrdinalIgnoreCase))
+        {
+            return uri.ToString();
+        }
+
+        AdminPlus.LogWarn($"Ignored invalid Discord webhook URL in {settingName}.");
+        return string.Empty;
     }
 
     private static void CreateDefaultConfig(string configFile)
@@ -835,15 +855,32 @@ public static class Discord
         try
         {
             string jsonString = JsonSerializer.Serialize(embedData, JsonOptions);
-            using StringContent stringContent = new(jsonString, Encoding.UTF8, "application/json");
 
-            using HttpResponseMessage response = await _httpClient.PostAsync(webhookUrl, stringContent).ConfigureAwait(false);
-            string responseContent = await response.Content.ReadAsStringAsync();
+            for (int attempt = 0; attempt < 3; attempt++)
+            {
+                using StringContent stringContent = new(jsonString, Encoding.UTF8, "application/json");
+                using HttpResponseMessage response = await _httpClient.PostAsync(webhookUrl, stringContent).ConfigureAwait(false);
 
-            if (response.IsSuccessStatusCode)
-                return true;
+                if (response.IsSuccessStatusCode)
+                    return true;
 
-            Console.WriteLine($"[AdminPlus] Discord webhook failed ({response.StatusCode}): {responseContent}");
+                if ((int)response.StatusCode == 429 && attempt < 2)
+                {
+                    var retryAfter = response.Headers.RetryAfter?.Delta ?? TimeSpan.FromSeconds(1);
+                    if (retryAfter < TimeSpan.Zero)
+                        retryAfter = TimeSpan.FromSeconds(1);
+                    if (retryAfter > TimeSpan.FromSeconds(10))
+                        retryAfter = TimeSpan.FromSeconds(10);
+
+                    await Task.Delay(retryAfter).ConfigureAwait(false);
+                    continue;
+                }
+
+                string responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                AdminPlus.LogError($"Discord webhook failed ({response.StatusCode}): {responseContent}");
+                return false;
+            }
+
             return false;
         }
         catch (Exception ex)
