@@ -892,7 +892,7 @@ public partial class AdminPlus
     {
         if (caller == null)
         {
-            Console.WriteLine("[AdminPlus] css_map is disabled on the server console. Use it from an in-game admin client console.");
+            Console.WriteLine("[Reztop-AdminPlus] css_map is disabled on the server console. Use it from an in-game admin client console.");
             return;
         }
 
@@ -1019,7 +1019,7 @@ public partial class AdminPlus
         if (caller != null && caller.IsValid)
             caller.Print(message);
         else
-            Console.WriteLine($"[AdminPlus] {message}");
+            Console.WriteLine($"[Reztop-AdminPlus] {message}");
         
         PlayerExtensions.PrintToAll(message);
     }
