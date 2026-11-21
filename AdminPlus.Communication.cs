@@ -383,7 +383,7 @@ public partial class AdminPlus
 
     private void CmdMute(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -400,7 +400,7 @@ public partial class AdminPlus
 
     private void CmdGag(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -417,7 +417,7 @@ public partial class AdminPlus
 
     private void CmdUnmute(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -434,7 +434,7 @@ public partial class AdminPlus
 
     private void CmdUngag(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -451,7 +451,7 @@ public partial class AdminPlus
 
     private void CmdSilence(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -504,7 +504,7 @@ public partial class AdminPlus
 
     private void CmdUnsilence(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -690,7 +690,7 @@ public partial class AdminPlus
             return;
         }
 
-        if (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat"))
+        if (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat"))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -742,7 +742,7 @@ public partial class AdminPlus
             return;
         }
 
-        if (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/chat"))
+        if (!caller.IsValid || !HasEffectivePermission(caller, "@css/chat"))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -900,7 +900,7 @@ public partial class AdminPlus
 
     private void CmdCleanAll(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/root")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -930,7 +930,7 @@ public partial class AdminPlus
 
     private void CmdCleanMute(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/root")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -958,7 +958,7 @@ public partial class AdminPlus
 
     private void CmdCleanGag(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/root")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
