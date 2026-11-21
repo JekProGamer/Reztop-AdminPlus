@@ -26,14 +26,9 @@ public static class Discord
     
     public static void Dispose()
     {
-        try
-        {
-            _httpClient?.Dispose();
-        }
-        catch (Exception ex)
-        {
-            AdminPlus.LogError($"Discord HttpClient dispose error: {ex.Message}");
-        }
+        // HttpClient is process-wide and reused after plugin hot reloads.
+        // Disposing it here permanently breaks subsequent webhook requests.
+        StopStatusTimer();
     }
 
     public static void StartStatusTimer(AdminPlus plugin)
