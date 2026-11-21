@@ -54,7 +54,7 @@ public partial class AdminPlus
         
         if (isConsoleCommand)
         {
-            Console.WriteLine("[AdminPlus] Admin menu opened from console.");
+            Console.WriteLine("[Reztop-AdminPlus] Admin menu opened from console.");
             return;
         }
         
@@ -1128,7 +1128,7 @@ public partial class AdminPlus
                 var currentMap = Server.MapName;
                 if (currentMap == map)
                 {
-                    admin.Print($"{{green}}[AdminPlus]{{default}} You are already on {{yellow}}{map}{{default}} map!");
+                    admin.Print($"{{green}}[Reztop-AdminPlus]{{default}} You are already on {{yellow}}{map}{{default}} map!");
                     return;
                 }
 
@@ -1299,7 +1299,7 @@ public partial class AdminPlus
         
         if (isConsoleCommand)
         {
-            Console.WriteLine("[AdminPlus] Console ban list menu opened.");
+            Console.WriteLine("[Reztop-AdminPlus] Console ban list menu opened.");
             return;
         }
         
