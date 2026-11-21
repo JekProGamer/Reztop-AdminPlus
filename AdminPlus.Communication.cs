@@ -253,7 +253,7 @@ public partial class AdminPlus
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[AdminPlus] Communication cache refresh check failed: {ex.Message}");
+            Console.WriteLine($"[Reztop-AdminPlus] Communication cache refresh check failed: {ex.Message}");
         }
     }
 
@@ -673,7 +673,7 @@ public partial class AdminPlus
 
         if (caller == null)
         {
-            Console.WriteLine("[AdminPlus] Mute list:");
+            Console.WriteLine("[Reztop-AdminPlus] Mute list:");
             if (!activeMutes.Any())
             {
                 Console.WriteLine("  Mute list is empty.");
@@ -725,7 +725,7 @@ public partial class AdminPlus
 
         if (caller == null)
         {
-            Console.WriteLine("[AdminPlus] Gag list:");
+            Console.WriteLine("[Reztop-AdminPlus] Gag list:");
             if (!activeGags.Any())
             {
                 Console.WriteLine("  Gag list is empty.");
