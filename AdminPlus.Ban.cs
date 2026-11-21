@@ -67,7 +67,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/ban"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/ban"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -274,7 +274,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/ban"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/ban"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -367,7 +367,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/unban"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/unban"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -729,7 +729,7 @@ public partial class AdminPlus
             for (int i = 0; i < 3; i++)
             {
                 foreach (var admin in Utilities.GetPlayers()!
-                         .Where(p => p.IsValid && !p.IsBot && AdminManager.PlayerHasPermissions(p, "@css/ban")))
+                         .Where(p => p.IsValid && !p.IsBot && HasEffectivePermission(p, "@css/ban")))
                 {
                     admin.PrintToChat(Localizer["AltAccount.Warning1", player.PlayerName, ip]);
                     admin.PrintToChat(Localizer["AltAccount.Warning2", lastSteamId, nick, reason]);
@@ -847,7 +847,7 @@ public partial class AdminPlus
 
     private void CmdCleanBans(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/root")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -878,7 +878,7 @@ public partial class AdminPlus
 
     private void CmdCleanIpBans(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/root")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
@@ -951,7 +951,7 @@ public partial class AdminPlus
 
     private void CmdCleanSteamBans(CCSPlayerController? caller, CommandInfo info)
     {
-        if (caller != null && (!caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root")))
+        if (caller != null && (!caller.IsValid || !HasEffectivePermission(caller, "@css/root")))
         {
             if (caller.IsValid) caller.Print(Localizer["NoPermission"]);
             return;
