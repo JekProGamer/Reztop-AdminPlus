@@ -19,8 +19,14 @@ public partial class AdminPlus
 {
     private static readonly List<string> PredefinedMaps = new()
     {
-        "de_vertigo", "de_mirage", "de_inferno", "de_anubis", "de_nuke",
-        "de_overpass", "de_train", "de_ancient", "de_dust2"
+        "dm_nixware_mirage_d",
+        "dm_nixware_fysnow_d"
+    };
+
+    private static readonly HashSet<string> WorkshopMaps = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "dm_nixware_mirage_d",
+        "dm_nixware_fysnow_d"
     };
     
     public static void CleanupMenu()
@@ -1137,7 +1143,10 @@ public partial class AdminPlus
                 {
                     try 
                     { 
-                        Server.ExecuteCommand($"changelevel {map}"); 
+                        if (WorkshopMaps.Contains(map))
+                            Server.ExecuteCommand($"ds_workshop_changelevel {map}");
+                        else
+                            Server.ExecuteCommand($"changelevel {map}"); 
                     }
                     catch (Exception ex)
                     {
