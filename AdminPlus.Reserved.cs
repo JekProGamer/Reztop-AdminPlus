@@ -400,22 +400,22 @@ public partial class AdminPlus
     {
         if (_debugMode)
         {
-            Console.WriteLine($"[AdminPlus.Reservation] {string.Format(message, args)}");
+            Console.WriteLine($"[Reztop-AdminPlus.Reservation] {string.Format(message, args)}");
         }
     }
     
     private void LogError(string message, Exception? ex = null)
     {
-        Console.WriteLine($"[AdminPlus.Reservation.ERROR] {message}");
+        Console.WriteLine($"[Reztop-AdminPlus.Reservation.ERROR] {message}");
         if (ex != null)
         {
-            Console.WriteLine($"[AdminPlus.Reservation.ERROR] Exception: {ex.Message}");
+            Console.WriteLine($"[Reztop-AdminPlus.Reservation.ERROR] Exception: {ex.Message}");
         }
     }
     
     private void LogInfo(string message, params object[] args)
     {
-        Console.WriteLine($"[AdminPlus.Reservation.INFO] {string.Format(message, args)}");
+        Console.WriteLine($"[Reztop-AdminPlus.Reservation.INFO] {string.Format(message, args)}");
     }
     
 }
