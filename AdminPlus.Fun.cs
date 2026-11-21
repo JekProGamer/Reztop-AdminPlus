@@ -125,7 +125,7 @@ public partial class AdminPlus
     {
         AddCommand(name, usage, (caller, info) =>
         {
-            if (caller != null && caller.IsValid && !AdminManager.PlayerHasPermissions(caller, perm))
+            if (caller != null && caller.IsValid && !HasEffectivePermission(caller, perm))
             { caller.Print(Localizer["NoPermission"]); return; }
             handler(caller, info);
         });
