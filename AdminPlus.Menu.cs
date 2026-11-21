@@ -1073,6 +1073,7 @@ public partial class AdminPlus
         var menu = CreateMenu(Localizer["Menu.ServerCommands"]);
         List<ChatMenuOptionData> options = [];
 
+        options.Add(new ChatMenuOptionData(Localizer["Menu.Option.RestartDeathmatch"], () => ShowConfirmRestartDeathmatchMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.ChangeMap"], () => ShowMapSelectionMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Fun.Cat.Cleanup"], () => ShowFunCleanupMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.RoundRestart"], () =>
@@ -1096,6 +1097,55 @@ public partial class AdminPlus
             menu.ExitButton = true;
             OpenMenu(admin, menu);
         }
+    }
+
+    private void ShowConfirmRestartDeathmatchMenu(CCSPlayerController admin)
+    {
+        if (!HasEffectivePermission(admin, "@css/generic"))
+        {
+            admin.Print(Localizer["NoPermission"]);
+            return;
+        }
+
+        var currentMap = Server.MapName;
+        var menu = CreateMenu(Localizer["Menu.RestartDeathmatchConfirm"]);
+        if (menu == null) return;
+
+        menu.AddMenuOption(Localizer["Menu.ConfirmYes"], (ply, opt) =>
+        {
+            if (!HasEffectivePermission(admin, "@css/generic"))
+            {
+                admin.Print(Localizer["NoPermission"]);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(currentMap))
+            {
+                admin.Print(Localizer["Map.NotFound", currentMap]);
+                return;
+            }
+
+            PlayerExtensions.PrintToAll(Localizer["Deathmatch.Restarting", admin.PlayerName, currentMap]);
+            AddTimer(2.0f, () =>
+            {
+                try
+                {
+                    if (WorkshopMaps.Contains(currentMap))
+                        Server.ExecuteCommand($"ds_workshop_changelevel {currentMap}");
+                    else
+                        Server.ExecuteCommand($"changelevel {currentMap}");
+                }
+                catch (Exception ex)
+                {
+                    LogError($"Deathmatch restart error: {ex.Message}");
+                    admin.Print(Localizer["Map.ChangeError", currentMap]);
+                }
+            });
+        });
+
+        menu.AddMenuOption(Localizer["Menu.ConfirmNo"], (ply, opt) => ShowServerCommands(admin));
+        menu.ExitButton = true;
+        OpenMenu(admin, menu);
     }
 
     private void ShowMapSelectionMenu(CCSPlayerController admin)
