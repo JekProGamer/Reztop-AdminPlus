@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Text.Json.Nodes;
 using System.Text.Json;
@@ -30,9 +31,9 @@ namespace AdminPlus;
 [MinimumApiVersion(78)]
 public partial class AdminPlus : BasePlugin
 {
-    public override string ModuleName => "AdminPlus";
-    public override string ModuleVersion => "1.0.8";
-    public override string ModuleAuthor => "Debr1sj";
+    public override string ModuleName => "Reztop-AdminPlus";
+    public override string ModuleVersion => "1.1.0";
+    public override string ModuleAuthor => "Reztop";
 
     internal static string BannedUserPath = string.Empty;
     internal static string BannedIpPath = string.Empty;
@@ -345,6 +346,34 @@ public partial class AdminPlus : BasePlugin
         }
     }
 
+    internal static string NormalizeIpAddress(string address)
+    {
+        if (string.IsNullOrWhiteSpace(address))
+            return string.Empty;
+
+        address = address.Trim();
+
+        if (address.StartsWith("[", StringComparison.Ordinal))
+        {
+            int closingBracket = address.IndexOf(']');
+            if (closingBracket > 1)
+                address = address.Substring(1, closingBracket - 1);
+        }
+
+        if (IPAddress.TryParse(address, out _))
+            return address;
+
+        int lastColon = address.LastIndexOf(':');
+        if (lastColon > 0 && address.IndexOf(':') == lastColon)
+        {
+            var host = address.Substring(0, lastColon);
+            if (IPAddress.TryParse(host, out var parsed) && parsed.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                return host;
+        }
+
+        return address;
+    }
+
     private void EnforceBan(int playerSlot)
     {
         TryRefreshBanCacheIfChanged();
@@ -358,7 +387,7 @@ public partial class AdminPlus : BasePlugin
         string ipWithoutPort = ip;
         if (ip.Contains(":"))
         {
-            ipWithoutPort = ip.Split(':')[0];
+            ipWithoutPort = NormalizeIpAddress(ip);
         }
 
         lock (_lock)
