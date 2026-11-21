@@ -195,7 +195,7 @@ public partial class AdminPlus
         if (caller != null && (!caller.IsValid || !HasChatPermission(caller))) return;
         if (info.ArgCount < 2) { if (caller != null) caller.Print(Localizer["Csay.Usage"]); else Console.WriteLine(Localizer["Csay.UsageConsole"]); return; }
         var msg = info.ArgString?.Trim() ?? "";
-        if (caller == null) { Console.WriteLine("[AdminPlus] csay: " + msg); return; }
+        if (caller == null) { Console.WriteLine("[Reztop-AdminPlus] csay: " + msg); return; }
         SendCSay(caller, msg);
     }
 
@@ -204,7 +204,7 @@ public partial class AdminPlus
         if (caller != null && (!caller.IsValid || !HasChatPermission(caller))) return;
         if (info.ArgCount < 2) { if (caller != null) caller.Print(Localizer["Hsay.Usage"]); else Console.WriteLine(Localizer["Hsay.UsageConsole"]); return; }
         var msg = info.ArgString?.Trim() ?? "";
-        if (caller == null) { Console.WriteLine("[AdminPlus] hsay: " + msg); return; }
+        if (caller == null) { Console.WriteLine("[Reztop-AdminPlus] hsay: " + msg); return; }
         SendHSay(caller, msg);
     }
 
@@ -222,7 +222,7 @@ public partial class AdminPlus
         var target = FindPlayerByNameOrId(token);
         if (target == null || !target.IsValid)
         { if (caller != null) caller.Print(Localizer["NoMatchingClient"]); else Console.WriteLine(Localizer["NoMatchingClient"]); return; }
-        if (caller == null) { Console.WriteLine($"[AdminPlus] psay to {target.PlayerName}: {msg}"); target.Print(msg); return; }
+        if (caller == null) { Console.WriteLine($"[Reztop-AdminPlus] psay to {target.PlayerName}: {msg}"); target.Print(msg); return; }
         SendPSay(caller, target, msg);
     }
 
