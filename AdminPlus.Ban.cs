@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace AdminPlus;
@@ -146,7 +147,7 @@ public partial class AdminPlus
 
             string steamId = target.SteamID.ToString();
             string playerName = target.PlayerName;
-            string ip = target.IpAddress ?? "-";
+            string ip = NormalizeIpAddress(target.IpAddress ?? "-");
 
             var safeName = SanitizeName(playerName);
             var expiry = minutes == 0 ? 0 : DateTimeOffset.UtcNow.ToUnixTimeSeconds() + minutes * 60;
@@ -219,7 +220,7 @@ public partial class AdminPlus
         {
             steamId = target.SteamID.ToString();
             playerName = target.PlayerName;
-            ip = target.IpAddress ?? "-";
+            ip = NormalizeIpAddress(target.IpAddress ?? "-");
         }
         else
         {
@@ -299,7 +300,7 @@ public partial class AdminPlus
 
         if (target != null && !string.IsNullOrEmpty(target.IpAddress))
         {
-            ip = target.IpAddress;
+            ip = NormalizeIpAddress(target.IpAddress);
             displayName = SanitizeName(target.PlayerName);
             
             if (ip.Contains(":"))
@@ -307,7 +308,7 @@ public partial class AdminPlus
                 ip = ip.Split(':')[0];
             }
         }
-        else if (target == null && !Regex.IsMatch(input, @"^\d{1,3}(\.\d{1,3}){3}$"))
+        else if (target == null && !IPAddress.TryParse(NormalizeIpAddress(input), out _))
         {
             if (caller != null && caller.IsValid) 
                 caller.Print(Localizer["IpBan.PlayerNotFound", input]);
@@ -316,7 +317,8 @@ public partial class AdminPlus
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(ip) || !Regex.IsMatch(ip, @"^\d{1,3}(\.\d{1,3}){3}$"))
+        ip = NormalizeIpAddress(ip);
+        if (string.IsNullOrWhiteSpace(ip) || !IPAddress.TryParse(ip, out _))
         {
             if (caller != null && caller.IsValid) caller.Print(Localizer["IpBan.Invalid"]);
             else Console.WriteLine(Localizer["IpBan.InvalidConsole"]);
@@ -339,7 +341,7 @@ public partial class AdminPlus
             File.WriteAllLines(BannedIpPath, IpBans.Values.Select(x => x.line));
         }
 
-        foreach (var p in Utilities.GetPlayers()!.Where(p => p.IsValid && !string.IsNullOrEmpty(p.IpAddress) && p.IpAddress.StartsWith(ip + ":")))
+        foreach (var p in Utilities.GetPlayers()!.Where(p => p.IsValid && NormalizeIpAddress(p.IpAddress ?? "") == ip))
             p.Disconnect(NetworkDisconnectionReason.NETWORK_DISCONNECT_STEAM_BANNED);
 
         string executorName = GetExecutorName(caller);
@@ -707,14 +709,14 @@ public partial class AdminPlus
     private void SaveRecentSeen(CCSPlayerController player)
     {
         if (player != null && player.IsValid)
-            recentSeen[player.SteamID] = (DateTime.UtcNow, player.IpAddress ?? "-");
+            recentSeen[player.SteamID] = (DateTime.UtcNow, NormalizeIpAddress(player.IpAddress ?? "-"));
     }
 
     private void CheckAltAccountWarning(CCSPlayerController player)
     {
         if (player == null || !player.IsValid) return;
 
-        var ip = player.IpAddress ?? "-";
+        var ip = NormalizeIpAddress(player.IpAddress ?? "-");
 
         var others = SteamBans
             .Where(x => x.Value.ip == ip)
@@ -755,9 +757,9 @@ public partial class AdminPlus
         var target = players.FirstOrDefault(p => p.IsValid && p.SteamID.ToString() == input);
         if (target != null) return target;
 
-        if (forConsole && Regex.IsMatch(input, @"^\d{1,3}(\.\d{1,3}){3}$"))
+        if (forConsole && IPAddress.TryParse(NormalizeIpAddress(input), out _))
         {
-            return players.FirstOrDefault(p => p.IsValid && p.IpAddress == input);
+            return players.FirstOrDefault(p => p.IsValid && NormalizeIpAddress(p.IpAddress ?? "") == NormalizeIpAddress(input));
         }
 
         var matchingPlayers = players
