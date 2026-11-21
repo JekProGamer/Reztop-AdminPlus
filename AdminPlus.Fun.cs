@@ -274,7 +274,7 @@ public partial class AdminPlus
             _activeShakes.Clear();
             _prevGravityScale.Clear();
             
-            Console.WriteLine("[AdminPlus] All fun timers and data cleaned up.");
+            Console.WriteLine("[Reztop-AdminPlus] All fun timers and data cleaned up.");
         }
         catch (Exception ex)
         {
