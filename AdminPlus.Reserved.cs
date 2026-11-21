@@ -15,6 +15,7 @@ namespace AdminPlus;
 public partial class AdminPlus
 {
     private const string PlayerDesignerName = "cs_player_controller";
+    private const int ReservedSlotCount = 1;
     
     private bool _reservationEnabled = true;
     private bool _debugMode = false;
@@ -47,7 +48,7 @@ public partial class AdminPlus
         }
         catch (Exception ex)
         {
-            LogError("PeriodicCleanup error", ex);
+            LogError("Reservation system error", ex);
         }
     }
     
