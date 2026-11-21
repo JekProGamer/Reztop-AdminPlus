@@ -267,7 +267,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/root"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -356,7 +356,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/root"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
@@ -413,7 +413,7 @@ public partial class AdminPlus
         }
         else
         {
-            if (caller == null || !caller.IsValid || !AdminManager.PlayerHasPermissions(caller, "@css/root"))
+            if (caller == null || !caller.IsValid || !HasEffectivePermission(caller, "@css/root"))
             {
                 caller?.Print(Localizer["NoPermission"]);
                 return;
