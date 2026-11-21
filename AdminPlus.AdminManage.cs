@@ -29,7 +29,7 @@ public partial class AdminPlus
             if (!File.Exists(AdminsFile))
             {
                 File.WriteAllText(AdminsFile, "{}" + Environment.NewLine, Encoding.UTF8);
-                Console.WriteLine($"[AdminPlus] Created missing admin config: {AdminsFile}");
+                Console.WriteLine($"[Reztop-AdminPlus] Created missing admin config: {AdminsFile}");
             }
 
             if (!File.Exists(AdminGroupsFile))
@@ -67,7 +67,7 @@ public partial class AdminPlus
                 });
 
                 File.WriteAllText(AdminGroupsFile, json + Environment.NewLine, Encoding.UTF8);
-                Console.WriteLine($"[AdminPlus] Created missing admin groups config: {AdminGroupsFile}");
+                Console.WriteLine($"[Reztop-AdminPlus] Created missing admin groups config: {AdminGroupsFile}");
             }
         }
         catch (Exception ex)
@@ -86,7 +86,7 @@ public partial class AdminPlus
                 LogError($"Admin file not found: {AdminsFile}");
                 return false;
             }
-            Console.WriteLine($"[AdminPlus] Loading admin data from: {AdminsFile}");
+            Console.WriteLine($"[Reztop-AdminPlus] Loading admin data from: {AdminsFile}");
             var text = File.ReadAllText(AdminsFile, Encoding.UTF8);
             if (string.IsNullOrWhiteSpace(text))
             {
@@ -121,7 +121,7 @@ public partial class AdminPlus
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         });
 
-        Console.WriteLine($"[AdminPlus] Saving admin data to: {AdminsFile}");
+        Console.WriteLine($"[Reztop-AdminPlus] Saving admin data to: {AdminsFile}");
         File.WriteAllText(tmp, json, Encoding.UTF8);
         try
         {
@@ -263,7 +263,7 @@ public partial class AdminPlus
         
         if (isConsoleCommand)
         {
-            Console.WriteLine("[AdminPlus] Console admin add command executed.");
+            Console.WriteLine("[Reztop-AdminPlus] Console admin add command executed.");
         }
         else
         {
@@ -293,7 +293,7 @@ public partial class AdminPlus
             if (caller != null && caller.IsValid)
                 caller.Print(Localizer["InvalidSteamId"]);
             else
-                Console.WriteLine("[AdminPlus] Invalid SteamID!");
+                Console.WriteLine("[Reztop-AdminPlus] Invalid SteamID!");
             return;
         }
 
@@ -311,7 +311,7 @@ public partial class AdminPlus
             if (caller != null && caller.IsValid)
                 caller.Print(Localizer["Admin.Exists", $"{playerName} {steamId3}"]);
             else
-                Console.WriteLine($"[AdminPlus] This admin already exists: {playerName} {steamId3}");
+                Console.WriteLine($"[Reztop-AdminPlus] This admin already exists: {playerName} {steamId3}");
             return;
         }
 
@@ -352,7 +352,7 @@ public partial class AdminPlus
         
         if (isConsoleCommand)
         {
-            Console.WriteLine("[AdminPlus] Console admin remove command executed.");
+            Console.WriteLine("[Reztop-AdminPlus] Console admin remove command executed.");
         }
         else
         {
@@ -375,7 +375,7 @@ public partial class AdminPlus
             if (caller != null && caller.IsValid)
                 caller.Print(Localizer["InvalidSteamId"]);
             else
-                Console.WriteLine("[AdminPlus] Invalid SteamID!");
+                Console.WriteLine("[Reztop-AdminPlus] Invalid SteamID!");
             return;
         }
 
@@ -385,7 +385,7 @@ public partial class AdminPlus
             if (caller != null && caller.IsValid)
                 caller.Print(Localizer["Admin.NotFound", key]);
             else
-                Console.WriteLine($"[AdminPlus] Admin not found: {key}");
+                Console.WriteLine($"[Reztop-AdminPlus] Admin not found: {key}");
             return;
         }
 
@@ -409,7 +409,7 @@ public partial class AdminPlus
         
         if (isConsoleCommand)
         {
-            Console.WriteLine("[AdminPlus] Console admin list command executed.");
+            Console.WriteLine("[Reztop-AdminPlus] Console admin list command executed.");
         }
         else
         {
