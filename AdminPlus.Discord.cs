@@ -926,11 +926,11 @@ public static class Discord
             var message = "Server status sent to Discord!";
             if (player != null)
             {
-                player.PrintToChat($" {ChatColors.Green}[AdminPlus] {message}");
+                player.PrintToChat($" {ChatColors.Green}[Reztop-AdminPlus] {message}");
             }
             else
             {
-                Console.WriteLine($"[AdminPlus] {message}");
+                Console.WriteLine($"[Reztop-AdminPlus] {message}");
             }
         }
         catch (Exception)
