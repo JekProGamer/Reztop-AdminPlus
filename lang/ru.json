@@ -76,6 +76,7 @@
     "Menu.ServerCommands": "Команды сервера",
     "Menu.Option.Ban": "Бан",
     "Menu.Option.Kick": "Кик",
+    "Menu.Option.SilentDisconnect": "Тихое отключение",
     "Menu.KickPlayer": "Выберите игрока для кика",
     "Menu.ChoosePlayer": "Выберите игрока для бана",
     "Menu.ChoosePlayerMoney": "Выберите игрока для выдачи денег",
