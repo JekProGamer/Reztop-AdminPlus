@@ -513,11 +513,11 @@ public partial class AdminPlus
         if (canGoBack)
         {
             string back = menu.ControlInfoOverrides.TryGetValue("Back", out var b) ? b : _menuConfig.Back;
-            sb.Append($"<font color='#ff3333' class='fontSize-sm'>Move: <font color='#f5a142'>{move}</font> | <font color='#ff3333'>Select: <font color='#f5a142'>{select}</font> | <font color='#ff3333'>Back: <font color='#f5a142'>{back}</font> | <font color='#ff3333'>Exit: <font color='#f5a142'>{exit}</font></font>");
+            sb.Append($"<font color='#ff3333' class='fontSize-sm'>Навигация: <font color='#f5a142'>{move}</font> | <font color='#ff3333'>Выбрать: <font color='#f5a142'>{select}</font> | <font color='#ff3333'>Назад: <font color='#f5a142'>{back}</font> | <font color='#ff3333'>Выход: <font color='#f5a142'>{exit}</font></font>");
         }
         else
         {
-            sb.Append($"<font color='#ff3333' class='fontSize-sm'>Move: <font color='#f5a142'>{move}</font> | <font color='#ff3333'>Select: <font color='#f5a142'>{select}</font> | <font color='#ff3333'>Exit: <font color='#f5a142'>{exit}</font></font>");
+            sb.Append($"<font color='#ff3333' class='fontSize-sm'>Навигация: <font color='#f5a142'>{move}</font> | <font color='#ff3333'>Выбрать: <font color='#f5a142'>{select}</font> | <font color='#ff3333'>Выход: <font color='#f5a142'>{exit}</font></font>");
         }
         player.PrintToCenterHtml(sb.ToString());
     }
