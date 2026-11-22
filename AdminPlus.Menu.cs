@@ -818,6 +818,7 @@ public partial class AdminPlus
 
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Ban"], () => ShowPlayerList(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Kick"], () => ShowKickPlayerMenu(admin)));
+        options.Add(new ChatMenuOptionData(Localizer["Menu.Option.SilentDisconnect"], () => ShowSilentDisconnectMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Slay"], () => ShowSlayMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Slap"], () => ShowSlapMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Mute"], () => ShowMutePlayerMenu(admin)));
@@ -909,6 +910,49 @@ public partial class AdminPlus
                 {
                     admin.Print(Localizer["NoPermission"]);
                 }
+            });
+        }
+
+        if (!menu.MenuOptions.Any())
+            menu.AddMenuOption(Localizer["Menu.NoPlayers"], (ply, opt) => { });
+
+        menu.ExitButton = true;
+        OpenMenu(admin, menu);
+    }
+
+    private void ShowSilentDisconnectMenu(CCSPlayerController admin)
+    {
+        if (!admin.IsValid || !HasEffectivePermission(admin, "@css/generic"))
+        {
+            admin.Print(Localizer["NoPermission"]);
+            return;
+        }
+
+        var menu = CreateMenu(Localizer["Menu.Option.SilentDisconnect"]);
+        if (menu == null) return;
+
+        foreach (var target in Utilities.GetPlayers()!)
+        {
+            if (target == null || !target.IsValid || target.IsBot) continue;
+
+            var targetUserId = target.UserId;
+            menu.AddMenuOption(SanitizeName(target.PlayerName), (ply, opt) =>
+            {
+                if (!admin.IsValid || !HasEffectivePermission(admin, "@css/generic"))
+                {
+                    admin.Print(Localizer["NoPermission"]);
+                    return;
+                }
+
+                var currentTarget = Utilities.GetPlayers()!
+                    .FirstOrDefault(player => player != null && player.IsValid && player.UserId == targetUserId);
+
+                if (currentTarget == null || !currentTarget.IsValid)
+                    return;
+
+                // kickid sends the custom disconnect reason only to the selected client.
+                // No public chat message or admin menu notification is generated.
+                Server.ExecuteCommand($"kickid {targetUserId} \"Произошла ошибка. Перезайдите на сервер.\"");
             });
         }
 
