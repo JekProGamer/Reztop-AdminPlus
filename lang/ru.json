@@ -434,6 +434,7 @@
     "VoteMap.Question": "Сменить карту на {0}?",
     "VoteMap.Changed": "Меняю карту на {yellow}{0}{default}...",
     "Map.Changed": "{red}{0}{default} меняет карту на {yellow}{1}{default}...",
+    "Map.AlreadySelected": "Карта уже выбрана! Сейчас на сервере: {yellow}{0}{default}.",
     "Map.WorkshopChanged": "{red}{0}{default} меняет карту мастерской на {yellow}{1}{default}...",
     "Map.NotFound": "Карта не найдена: {red}{0}{default}",
     "Map.ChangeError": "Ошибка смены карты: {red}{0}{default}",
