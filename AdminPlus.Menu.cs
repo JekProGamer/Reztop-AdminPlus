@@ -1,5 +1,6 @@
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
+using CounterStrikeSharp.API.Core.Translations;
 using CounterStrikeSharp.API.Modules.Admin;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Menu;
@@ -1187,7 +1188,7 @@ public partial class AdminPlus
                 var currentMap = Server.MapName;
                 if (currentMap == map)
                 {
-                    admin.Print($"{{green}}[Reztop-AdminPlus]{{default}} You are already on {{yellow}}{map}{{default}} map!");
+                    admin.PrintToChat($"{{green}}[Reztop-AdminPlus]{{default}} You are already on {{yellow}}{map}{{default}} map!".ReplaceColorTags());
                     return;
                 }
 
