@@ -84,6 +84,9 @@ public partial class AdminPlus
 
         options.Add(new ChatMenuOptionData(Localizer["Menu.ServerCommands"], () => ShowServerCommands(caller)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.PlayerCommands"], () => ShowPlayerCommands(caller)));
+
+        if (HasEffectivePermission(caller, "@css/root"))
+            options.Add(new ChatMenuOptionData("Чекер игрока", () => ShowPlayerCheckerMenu(caller)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Fun.Title"], () => ShowFunRootMenu(caller)));
 
         foreach (var menuOptionData in options)
