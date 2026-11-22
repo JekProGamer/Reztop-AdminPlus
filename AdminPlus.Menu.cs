@@ -1188,7 +1188,7 @@ public partial class AdminPlus
                 var currentMap = Server.MapName;
                 if (currentMap == map)
                 {
-                    admin.PrintToChat($"{{green}}[Reztop-AdminPlus]{{default}} You are already on {{yellow}}{map}{{default}} map!".ReplaceColorTags());
+                    admin.PrintToChat($"{{green}}[Reztop-AdminPlus]{{default}} {Localizer["Map.AlreadySelected", map]}".ReplaceColorTags());
                     return;
                 }
 
