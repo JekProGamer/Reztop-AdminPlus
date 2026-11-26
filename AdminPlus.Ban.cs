@@ -383,8 +383,13 @@ public partial class AdminPlus
 
         string key = info.GetArg(1);
         bool removed = false;
+
+        // SteamID64 values are numeric (17 digits) and must not be treated as player names.
+        bool isSteamId64 = key.Length == 17 && ulong.TryParse(key, out _);
+        bool isSteamId = key.StartsWith("STEAM_", StringComparison.OrdinalIgnoreCase);
+        bool isIpAddress = key.Contains(".");
         
-        if (!key.Contains("STEAM_") && !key.Contains("."))
+        if (!isSteamId64 && !isSteamId && !isIpAddress)
         {
             var target = GetPlayerFromInput(key, true);
             if (target != null && target.IsValid)
