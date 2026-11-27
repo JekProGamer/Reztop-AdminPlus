@@ -1,5 +1,5 @@
 {
-    "Prefix": "{green}[Reztop]{default}",
+    "Prefix": "{white}[{orange} R{green}T{red} ADMIN{white}]",
     "Console": "Консоль",
     "UnknownPlayer": "Неизвестный",
     "NoMatchingClient": "{red}Подходящий игрок не найден.{default}",
@@ -89,7 +89,7 @@
     "Menu.ChooseDuration": "Выберите длительность бана",
     "Menu.ChooseReason": "Выберите причину бана",
     "Menu.NoPlayers": "Подходящие игроки не найдены.",
-    "Menu.Option.ChangeMap": "Управление картами",
+    "Menu.Option.ChangeMap": "Сменить карту",
     "Menu.ChangeMap": "Выберите карту",
     "Menu.ChangeMapConfirm": "Подтвердите смену карты",
     "Menu.Option.RoundRestart": "Перезапуск раунда",
@@ -333,8 +333,8 @@
     "css_adminchat": "{red}[АДМИН-ЧАТ]{default} {green}{0}{default}: {1}",
     "Admins.Usage": "Использование: !admins",
     "Admins.None": "{red} В настоящее время нет онлайн админов!",
-    "Admins.Item": "{green}Онлайн админ: {gold}{0}{default} {purple}[{1}]{default}",
-    "Admins.Total": "Всего {yellow}{0}{default} админов онлайн!",
+    "Admins.Item": "{white}[{orange} Rez{green}Top{red}.cc {yellow}Онлайн админ: {white}{0}",
+    "Admins.Total": "{silver}Всего админов в онлайне {red}{0}",
     "HideAdmin.Usage": "{grey}!hideadmin{default} — скрыть/показать {gold}!admins{default}",
     "HideAdmin.Hidden": "{yellow}!admins скрыт.{default} {grey}({lightblue}!hideadmin{default}{grey} — показать){default}",
     "HideAdmin.Visible": "{lightblue}!admins снова виден.{default}",
@@ -660,7 +660,7 @@
     "Report.Reason.Griefing": "Грифинг / Саботаж команды",
     "Report.Reason.Spam": "Спам / Флуд",
     "Report.Reason.Other": "Другое",
-    "Menu.Option.RestartDeathmatch": "Перезапуск Deathmatch",
-    "Menu.RestartDeathmatchConfirm": "Перезапустить текущий Deathmatch?",
-    "Deathmatch.Restarting": "{red}{0}{default} перезапускает Deathmatch на карте {yellow}{1}{default}..."
+    "Menu.Option.RestartDeathmatch": "Перезапуск карты",
+    "Menu.RestartDeathmatchConfirm": "Перезапустить текущую карту?",
+    "Deathmatch.Restarting": "{red}{0}{default} перезапускает карту {yellow}{1}{default}..."
 }
