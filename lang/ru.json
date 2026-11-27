@@ -333,7 +333,7 @@
     "css_adminchat": "{red}[АДМИН-ЧАТ]{default} {green}{0}{default}: {1}",
     "Admins.Usage": "Использование: !admins",
     "Admins.None": "{red} В настоящее время нет онлайн админов!",
-    "Admins.Item": "{white}[{orange} Rez{green}Top{red}.cc {yellow}Онлайн админ: {white}{0}",
+    "Admins.Item": "{yellow}Онлайн админ: {white}{0}",
     "Admins.Total": "{silver}Всего админов в онлайне {red}{0}",
     "HideAdmin.Usage": "{grey}!hideadmin{default} — скрыть/показать {gold}!admins{default}",
     "HideAdmin.Hidden": "{yellow}!admins скрыт.{default} {grey}({lightblue}!hideadmin{default}{grey} — показать){default}",
