@@ -485,18 +485,6 @@ public partial class AdminPlus
         }
     }
 
-    private void ShowFunCleanupMenu(CCSPlayerController admin)
-    {
-        var m = CreateMenu(Localizer["Menu.Fun.Cat.Cleanup"]);
-        if (m == null) return;
-        
-        m.AddMenuOption(Localizer["Menu.Fun.Cleanup.Clean"], (p, o) => RunServerCmd(admin, "css_clean"));
-        {
-            m.ExitButton = true;
-            OpenMenu(admin, m);
-        }
-    }
-
     private void MenuClearDrug(CCSPlayerController admin, string targetToken)
     {
         IEnumerable<CCSPlayerController> targets = ResolveMenuTargets(targetToken);
