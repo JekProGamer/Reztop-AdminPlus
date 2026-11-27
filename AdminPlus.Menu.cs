@@ -334,11 +334,6 @@ public partial class AdminPlus
             }, onlyAlive: true);
         });
 
-        m.AddMenuOption(Localizer["Menu.Fun.Weapons.Clean"], (p, o) =>
-        {
-            RunServerCmd(admin, $"css_clean");
-        });
-
         if (m != null)
         {
             m.ExitButton = true;
@@ -824,9 +819,6 @@ public partial class AdminPlus
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Mute"], () => ShowMutePlayerMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Gag"], () => ShowGagPlayerMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Silence"], () => ShowSilencePlayerMenu(admin)));
-        options.Add(new ChatMenuOptionData(Localizer["Menu.Fun.Teleport.Respawn"], () => ShowRespawnMenu(admin)));
-        options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Money"], () => ShowMoneyMenu(admin)));
-        options.Add(new ChatMenuOptionData(Localizer["Menu.Option.Armor"], () => ShowArmorMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Fun.Cat.TeamOps"], () => ShowFunTeamOpsMenu(admin)));
 
         foreach (var menuOptionData in options)
@@ -1123,7 +1115,6 @@ public partial class AdminPlus
 
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.RestartDeathmatch"], () => ShowConfirmRestartDeathmatchMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.ChangeMap"], () => ShowMapSelectionMenu(admin)));
-        options.Add(new ChatMenuOptionData(Localizer["Menu.Fun.Cat.Cleanup"], () => ShowFunCleanupMenu(admin)));
         options.Add(new ChatMenuOptionData(Localizer["Menu.Option.RoundRestart"], () =>
         {
             if (HasEffectivePermission(admin, "@css/generic"))
